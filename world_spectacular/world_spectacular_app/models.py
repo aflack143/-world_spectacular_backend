@@ -3,21 +3,22 @@ from django.db import models
 # Create your models here.
 class Country(models.Model): 
     country_name = models.CharField(max_length=100, null=False)
-    country_code = models.CharField(max_length=3, null=False) 
-    wiki_link = models.CharField(max_length=500, null=True)
-    anthem = models.CharField(max_length=500, null=True)
-    globe_map = models.CharField(max_length=500, null=True)
+    country_code = models.CharField(max_length=3, null=False, unique=True) 
+    wiki_link = models.CharField(max_length=500, default=None)
+    anthem = models.CharField(max_length=500, blank=True, default=None)
+    globe_map = models.CharField(max_length=500, default=None)
 
     def __str__(self):        
-        return (self.country_name + self.country_code)
+        # return (self.country_name + ' - ' + self.country_code)
+        return (int(self.id))
 
 class Country_Picture(models.Model): 
     country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='pictures')
-    picture_url = models.CharField(max_length=500, null=False)
-    picture_location = models.CharField(max_length=150, null=False)
-    picture_photographer = models.CharField(max_length=150, null=True)
-    picture_photographer_link = models.CharField(max_length=500, null=True)
-    picture_source = models.CharField(max_length=500, null=True)
+    picture_url = models.CharField(max_length=1500, null=False)
+    picture_location = models.CharField(max_length=500, null=False)
+    picture_photographer = models.CharField(max_length=500, default=None)
+    picture_photographer_link = models.CharField(max_length=1500, default=None)
+    picture_source = models.CharField(max_length=1500, default=None)
 
     def __str__(self):        
         return (self.country_id)

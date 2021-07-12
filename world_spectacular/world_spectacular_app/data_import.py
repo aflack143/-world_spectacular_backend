@@ -15,15 +15,16 @@ def load_csv_file(path):
             )
 
 def load_country_picture_csv_file(path):
-    with open(path) as file_obj:
+    with open(path, newline='') as file_obj:
         reader = csv.reader(file_obj)
 
         for row in reader:
+            print(row[0])
             Country_Picture.objects.create(
-                country = row['country'],
-                picture_url = row['picture_url'],
-                picture_location = row['picture_location'],
-                picture_photographer = row['picture_photographer'],
-                picture_photographer_link = row['picture_photographer_link'],
-                picture_source = row['picture_source'],
-            )
+                country_id = row[0],
+                picture_url = row[1],
+                picture_location = row[2],
+                picture_photographer = row[3],
+                picture_photographer_link = row[4],
+                picture_source = row[5],
+            ),
