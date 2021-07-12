@@ -6,3 +6,12 @@
 
 Sources: 
 [Setting up environment variables](https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f)
+[CSV Seeder into postgres from Django](https://stackoverflow.com/questions/55169081/python-django-import-data-to-postgres) 
+```js
+# to start shell
+> py manage.py shell
+
+# to import and load csv file data
+>>> from world_spectacular_app.data_import import load_csv_file
+>>> load_csv_file("country.csv")
+````
