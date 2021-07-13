@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 class Country(models.Model): 
@@ -9,8 +10,10 @@ class Country(models.Model):
     globe_map = models.CharField(max_length=500, default=None)
 
     def __str__(self):        
-        # return (self.country_name + ' - ' + self.country_code)
-        return (int(self.id))
+        return (self.country_name + ' - ' + self.country_code)
+        # return (int(self.id))
+    # def slug(self):
+    #     return (slugify(self.country_code))
 
 class Country_Picture(models.Model): 
     country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='pictures')
@@ -21,7 +24,7 @@ class Country_Picture(models.Model):
     picture_source = models.CharField(max_length=1500, default=None)
 
     def __str__(self):        
-        return (self.country_id)
+        return (str(self.country) + ' - ' + self.picture_location)
 
 class User(models.Model): 
     email = models.CharField(max_length=50, null=False)
