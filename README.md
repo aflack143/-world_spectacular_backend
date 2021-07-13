@@ -12,7 +12,10 @@ Sources:
 # to start shell
 > py manage.py shell
 
-# to import and load csv file data
+# to import and load csv files:
 >>> from world_spectacular_app.data_import import load_csv_file
 >>> load_csv_file("country.csv")
+
+>>> from world_spectacular_app.data_import import load_country_picture_csv_file
+>>> load_country_picture_csv_file("country_picture.csv")
 ````
