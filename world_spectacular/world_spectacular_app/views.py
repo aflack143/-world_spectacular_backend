@@ -21,14 +21,14 @@ def get_world_photos(request):
     parsed_world_photos = serialize('json', world_photos)
     return HttpResponse(parsed_world_photos, content_type='application/json')
 
-def get_country(request, pk):
-    country = Country.objects.filter(id=pk)
+def get_country(request, cpk):
+    country = Country.objects.filter(id=cpk)
     print(country)
     parsed_each_country = serialize('json', country)
     return HttpResponse(parsed_each_country, content_type='application/json')
 
-def get_country_photos(request, pk):
-    found_country_photo = Country_Picture.objects.filter(country=pk)
+def get_country_photos(request, cpk):
+    found_country_photo = Country_Picture.objects.filter(country=cpk)
     print(found_country_photo)
     parsed_each_country_photos = serialize('json', found_country_photo)
     return HttpResponse(parsed_each_country_photos, content_type='application/json')
@@ -38,14 +38,22 @@ def get_users(request):
     parsed_users = serialize('json', users)
     return HttpResponse(parsed_users, content_type='application/json')
 
+def get_user(request, upk):
+    user = User.objects.get(id=upk)
+    print(user)
+    parsed_user = serialize('json', [user])
+    # return HttpResponse()
+    return HttpResponse(parsed_user, content_type='application/json')
+
 def create_user (request):
-    print(request)
+    # print(request)
     parsed_body = request.body.decode('utf-8')
-    parsed_body = json.loads(parsed_body)
     print(parsed_body)
+    parsed_body = json.loads(parsed_body)
     # user = User(token=parsed_body['token'], username=parsed_body['username'], photo_url=parsed_body['photo_url'], about_me=parsed_body['about_me'], country=parsed_body['country'])
+
     # user.save()
     return HttpResponse()
     
-    # parsed_tweet = serialize('json', [tweet])
-    # return HttpResponse(parsed_tweet, content_type='application/json')
+    # parsed_user = serialize('json', [user])
+    # return HttpResponse(parsed_user, content_type='application/json')
