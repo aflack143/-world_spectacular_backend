@@ -27,16 +27,14 @@ class Country_Picture(models.Model):
         return (str(self.country) + ' - ' + self.picture_location)
 
 class User(models.Model): 
-    email = models.CharField(max_length=50, null=False)
-    password = models.CharField(max_length=50, null=False)
-    username = models.CharField(max_length=50, null=False)
     token = models.CharField(max_length=150)
-    photo_url = models.CharField(max_length=150)
-    about_me = models.TextField(max_length=350, null=True)
-    country = models.ForeignKey(Country, on_delete=models.SET_NULL, related_name='user', null=True)
+    username = models.CharField(max_length=50, null=False)
+    photo_url = models.CharField(max_length=150, default=None, null=True, blank=True)
+    about_me = models.TextField(max_length=350, default=None, null=True, blank=True)
+    country = models.ForeignKey(Country, on_delete=models.SET_NULL, related_name='user', default=None, null=True, blank=True)
 
     def __str__(self):
-        return self.email
+        return self.username
 
 class User_Visit(models.Model): 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_visit')
