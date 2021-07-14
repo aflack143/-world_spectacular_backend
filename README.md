@@ -9,11 +9,10 @@ Sources:
 [CSV Seeder into postgres from Django](https://stackoverflow.com/questions/55169081/python-django-import-data-to-postgres) 
 
 ```js
-## To begin seeding the CSV into Postgres from Django
 # to start shell
 > py manage.py shell
 
-# to import and load csv file data
+# to import and load csv files:
 >>> from world_spectacular_app.data_import import load_csv_file
 >>> load_csv_file("country.csv")
 
