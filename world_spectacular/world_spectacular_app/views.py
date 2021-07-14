@@ -46,14 +46,16 @@ def get_user(request, upk):
     return HttpResponse(parsed_user, content_type='application/json')
 
 def create_user (request):
-    # print(request)
+    print(request.body)
     parsed_body = request.body.decode('utf-8')
     print(parsed_body)
     parsed_body = json.loads(parsed_body)
-    # user = User(token=parsed_body['token'], username=parsed_body['username'], photo_url=parsed_body['photo_url'], about_me=parsed_body['about_me'], country=parsed_body['country'])
-
-    # user.save()
     return HttpResponse()
-    
+
+
+
+
+# user = User(token=parsed_body['token'], username=parsed_body['username'], photo_url=parsed_body['photo_url'], about_me=parsed_body['about_me'], country=parsed_body['country'])
+    # user.save()
     # parsed_user = serialize('json', [user])
     # return HttpResponse(parsed_user, content_type='application/json')
