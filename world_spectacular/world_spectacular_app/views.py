@@ -38,8 +38,8 @@ def get_users(request):
     parsed_users = serialize('json', users)
     return HttpResponse(parsed_users, content_type='application/json')
 
-def get_user(request, upk):
-    user = User.objects.get(id=upk)
+def get_user(request, token):
+    user = User.objects.get(token=token)
     print(user)
     parsed_user = serialize('json', [user])
     # return HttpResponse()
@@ -49,7 +49,7 @@ def create_user(request):
     print(request.body)
     parsed_body = request.body.decode('utf-8')
     print(parsed_body)
-    # parsed_body = json.loads(parsed_body)
+    parsed_body = json.loads(parsed_body)
     parsed_body = parsed_body['data']
     user = User(token=parsed_body["token"], username=parsed_body["username"], photo_url=parsed_body["photo_url"], about_me=parsed_body["about_me"], country=parsed_body["country"])
     user.save()

@@ -29,9 +29,9 @@ class Country_Picture(models.Model):
 class User(models.Model): 
     token = models.CharField(max_length=150)
     username = models.CharField(max_length=50, null=False)
-    photo_url = models.CharField(max_length=150, default=None, null=True, blank=True)
-    about_me = models.TextField(max_length=350, default=None, null=True, blank=True)
-    country = models.ForeignKey(Country, on_delete=models.SET_NULL, related_name='user', default=None, null=True, blank=True)
+    photo_url = models.CharField(max_length=150, null=True, blank=True)
+    about_me = models.TextField(max_length=350, null=True, blank=True)
+    country = models.ForeignKey(Country, on_delete=models.SET_NULL, related_name='user', null=True, blank=True)
 
     def __str__(self):
         return self.username
