@@ -66,17 +66,20 @@ def get_user_dream_visit(request, token):
 
 def user_visited(request, cpk, token):
     user = User.objects.get(token=token)
+    print(user)
     country = Country.objects.get(id=cpk)
     found_user_visited = User_Visit.objects.filter(user=user, country=country, visited=True, dream_visit=False)
+    print(found_user_visited)
     if not found_user_visited:
         user_visit = User_Visit(user=user, country=country, visited=True, dream_visit=False)
         user_visit.save()
+        print(user_visit)
+        parsed_user_visited = serialize('json', [user_visit])
+        return HttpResponse(parsed_user_visited, content_type='application/json')
 
     else:
         found_user_visited.delete()
-        
-    parsed_user_visited = serialize('json', [user_visit])
-    return HttpResponse(parsed_user_visited, content_type='application/json')
+        return HttpResponse({'Message': "Profile Deleted"})
 
 
 # def user_visited(request, cpk, token):
