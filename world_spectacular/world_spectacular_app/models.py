@@ -43,4 +43,4 @@ class User_Visit(models.Model):
     dream_visit  = models.BooleanField(default=False)
 
     def __str__(self):        
-        return (self.user_id + self.country_id)
+        return (str(self.user) + ' - ' + str(self.country))
