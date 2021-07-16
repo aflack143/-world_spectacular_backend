@@ -1,3 +1,4 @@
+from django.http.response import HttpResponseNotFound
 from django.shortcuts import render
 from django.core.serializers import serialize
 from django.http import HttpResponse
@@ -36,10 +37,15 @@ def get_users(request):
 
 def get_user(request, token):
     user = User.objects.get(token=token)
-    parsed_user = serialize('json', [user])
-    return HttpResponse(parsed_user, content_type='application/json')
+    try: 
+        user = User.objects.get(token=token)
+        parsed_user = serialize('json', [user])
+        return HttpResponse(parsed_user, content_type='application/json')
+    except User.DoesNotExist:
+        return HttpResponse({"message": "User profile does not exist."})
 
 def create_user_profile(request):
+    print(request)
     parsed_body = request.body.decode('utf-8')
     parsed_body = json.loads(parsed_body)
     parsed_body = parsed_body['data']
@@ -66,23 +72,29 @@ def get_user_dream_visit(request, token):
 
 def user_visited(request, cpk, token):
     user = User.objects.get(token=token)
-    print(user)
     country = Country.objects.get(id=cpk)
     found_user_visited = User_Visit.objects.filter(user=user, country=country, visited=True, dream_visit=False)
-    print(found_user_visited)
     if not found_user_visited:
         user_visit = User_Visit(user=user, country=country, visited=True, dream_visit=False)
         user_visit.save()
-        print(user_visit)
         parsed_user_visited = serialize('json', [user_visit])
         return HttpResponse(parsed_user_visited, content_type='application/json')
 
     else:
         found_user_visited.delete()
-        return HttpResponse({'Message': "Profile Deleted"})
+        return HttpResponse({'Message': "Country removed from list"})
 
 
-# def user_visited(request, cpk, token):
-#     user = User.objects.get(token=token)
-#     country = Country.objects.get(id=cpk)
-#     found_user_dream_visit = User_Visit.objects.filter(user=user, country=country, visited=True, dream_visit=False)parsed_user_visited
+def user_dream_visit(request, cpk, token):
+    user = User.objects.get(token=token)
+    country = Country.objects.get(id=cpk)
+    found_user_dream_visit = User_Visit.objects.filter(user=user, country=country, visited=False, dream_visit=True)
+    if not found_user_dream_visit:
+        user_dream_visit = User_Visit(user=user, country=country, visited=False, dream_visit=True)
+        user_dream_visit.save()
+        parsed_user_visited = serialize('json', [user_dream_visit])
+        return HttpResponse(parsed_user_visited, content_type='application/json')
+
+    else:
+        found_user_dream_visit.delete()
+        return HttpResponse({'Message': "Country removed from list"})

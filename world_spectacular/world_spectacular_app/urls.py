@@ -12,9 +12,8 @@ urlpatterns = [
     path('profiles/create/', views.create_user_profile, name='create_user_profile'),
     path('profiles/<str:token>/delete/', views.delete_user_profile, name='delete_user_profile'),
 
-
-
     path('profiles/<str:token>/visited/', views.get_user_visited, name='get_user_visit'),
     path('profiles/<str:token>/dream_visit/', views.get_user_dream_visit, name='get_user_visit'),
     path('profiles/<str:token>/<int:cpk>/', views.user_visited, name='user_visited'),
+    path('profiles/<str:token>/<int:cpk>/', views.user_dream_visit, name='user_dream_visit'),
 ]
